@@ -24,40 +24,6 @@ def listar_tarefas():
 	return render_template("listar_tarefas.html", tarefas=todas_tarefas)
 
 
-@app.route('/criar_tarefa', methods=["GET", "POST"])
-def criar_tarefa():
-	tarefa = request.form.get('tarefa')
-	descricao = request.form.get('descricao')
-
-	if request.method == 'POST':
-		if not tarefa:
-			flash('Digite um nome para a tarefa!', 'error')
-		else:
-			tarefa = Tarefa(tarefa.capitalize(), descricao.capitalize())
-			db.session.add(tarefa)
-			db.session.commit()
-			return redirect(url_for('listar_tarefas'))
-	return render_template('nova_tarefa.html')
-
-
-@app.route('/<int:id>/atualiza_tarefa', methods=["GET", "POST"])
-def atualiza_tarefa(id):
-	tarefa = Tarefa.query.filter_by(id=id).first()
-	if request.method == 'POST':
-		tarefa = request.form['tarefa']
-		descricao = request.form['descricao']
-		Tarefa.query.filter_by(id=id).update({'tarefa': tarefa.capitalize(), 'descricao': descricao.capitalize()})
-		db.session.commit()
-		return redirect(url_for('listar_tarefas'))
-	return render_template("atualiza_tarefa.html", tarefa=tarefa)
-
-
-@app.route('/<int:id>/remove_tarefa')
-def remove_tarefa(id):
-	tarefa = Tarefa.query.filter_by(id=id).first()
-	db.session.delete(tarefa)
-	db.session.commit()
-	return redirect(url_for('listar_tarefas'))
 
 
 if __name__ == '__main__':
