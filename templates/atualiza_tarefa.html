@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block conteudo %}
+
+<style>
+  h2 {
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    color: orange;
+  }
+</style>
+
+<h2 style="text-align: center;">Atualizar Tarefa</h2>
+<hr>
+    {%- for mensagem in get_flashed_messages()  %}
+	  <div class="alert alert-danger">
+		{{mensagem}}
+	  </div>
+    {%- endfor %}
+
+  <form action="{{url_for('atualiza_tarefa', id=tarefa.id)}}" method="POST" class="form-control">
+      <label>Tarefa</label>
+      <input class="form-control" type="text" name="tarefa" value="{{tarefa.tarefa}}" required>
+      <label>Descrição</label>
+      <textarea class="form-control" name="descricao">{{tarefa.descricao}}</textarea>
+      <br>
+      <button class="btn btn-success">Atualizar</button>
+      <a href="{{url_for('listar_tarefas')}}" class="btn btn-danger">Cancelar</a>
+  </form>
+{% endblock conteudo %}

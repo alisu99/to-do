@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block conteudo %}
+
+<style>
+	h2 {
+	  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+	}
+</style>
+
+<h2 style="text-align: center;">Lista de Tarefas</h2>
+<hr>
+<a href="{{url_for('criar_tarefa')}}" class="btn btn-outline-secondary">Adicionar Tarefa</a>
+<br><br>
+<table class="table table-bordered table-hover">
+	<thead class="table-dark">
+	    <tr>
+	      <th style="text-align: center;" scope="col" width="50">Id</th>
+	      <th style="text-align: center;" scope="col" width="300">Tarefa</th>
+	      <th style="text-align: center;" scope="col" width="700">Descrição</th>
+	      <th style="text-align: center;" scope="col" width="170">Ações</th>
+	    </tr>
+  </thead>
+  <tbody>
+	{% for tarefa in tarefas.items %}
+		<tr>
+			<td style="text-align: center;">{{tarefa.id}}</td>
+			<td>{{tarefa.tarefa}}</td>
+			<td>{{tarefa.descricao}}</td>
+			<td>
+				<a href="{{tarefa.id}}/atualiza_tarefa" class="btn btn-outline-secondary">Editar</a>
+				<a href="{{tarefa.id}}/remove_tarefa" onclick="return confirm('Deseja excluir essa tarefa??')" class="btn btn-danger btn-xs">Excluir</a>
+			</td>
+		</tr>
+	{% endfor %}
+  </tbody>
+</table>
+
+{% if tarefas.has_prev %}
+	<a href="{{url_for('listar_tarefas', page=tarefas.prev_num)}}" class="btn btn-secondary btn-sm">Página Anterior</a>
+{% else %}
+{% endif %}
+
+{% if tarefas.has_next %}
+	<a href="{{url_for('listar_tarefas', page=tarefas.next_num)}}" class="btn btn-secondary btn-sm">Próxima Página</a>
+{% else %}
+{% endif %}
+
+{% endblock conteudo %}
