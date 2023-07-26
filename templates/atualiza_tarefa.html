@@ -1,14 +1,10 @@
 {% extends 'base.html' %}
 {% block conteudo %}
+<link rel="stylesheet" href="../static/css/estilos.css">
 
-<style>
-  h2 {
-    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    color: orange;
-  }
-</style>
 
-<h2 style="text-align: center;">Atualizar Tarefa</h2>
+
+<h2 id="atualizarTarefa" style="text-align: center;">Atualizar Tarefa</h2>
 <hr>
     {%- for mensagem in get_flashed_messages()  %}
 	  <div class="alert alert-danger">

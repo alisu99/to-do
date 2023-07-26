@@ -1,14 +1,8 @@
 {% extends 'base.html' %}
 {% block conteudo %}
+<link rel="stylesheet" href="../static/css/estilos.css">
 
-<style>
-.titulo {
-	font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-	color: green;
-}
-</style>
-
-<h2 class="titulo" style="text-align: center;">Adicionar nova tarefa</h2>
+<h2 id="AdicionarTarefa" style="text-align: center;">Adicionar nova tarefa</h2>
 <hr>
 {%- for mensagem in get_flashed_messages()  %}
 	<div class="alert alert-danger">

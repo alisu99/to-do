@@ -17,7 +17,6 @@ class Tarefa(db.Model):
 
 @app.route('/criar_tarefa', methods=["GET", "POST"])
 
-
 def criar_tarefa():
 	tarefa = request.form.get('tarefa')
 	descricao = request.form.get('descricao')
