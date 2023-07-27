@@ -2,9 +2,10 @@
 {% block conteudo %}
 <link rel="stylesheet" href="../static/css/estilos.css">
 <!-------------------------------------------------------->
-<h2 id="ListaDeTarefas" style="text-align: center;">Lista de Tarefas</h2>
-<hr>
-<a href="{{url_for('criar_tarefa')}}" class="btn btn-outline-secondary">Adicionar Tarefa</a>
+<h2 id="ListaDeTarefas" style="text-align: center;">Lista de tarefas</h2>
+<br>
+<a id="btnNovaTarefa" href="{{url_for('criar_tarefa')}}" class="btn btn-success">Nova tarefa</a>
+<a id="btnExcluirTodas" href="{{url_for('excluir_tarefas')}}" onclick="return confirm('Deseja excluir TODAS as tarefas??')" class="btn btn-danger">Excluir todas</a>
 <br><br>
 
 	<table class="table table-bordered table-hover">
@@ -23,21 +24,29 @@
 				<td>{{tarefa.tarefa}}</td>
 				<td>{{tarefa.descricao}}</td>
 				<td>
-					<a href="{{tarefa.id}}/atualiza_tarefa" class="btn btn-outline-secondary">Editar</a>
-					<a href="{{tarefa.id}}/remove_tarefa" onclick="return confirm('Deseja excluir essa tarefa??')" class="btn btn-danger btn-xs">Excluir</a>
+					<a id="btnEditar" href="{{tarefa.id}}/atualiza_tarefa" class="btn btn-secondary">Editar</a>
+					<a id="btnExcluir" href="{{tarefa.id}}/remove_tarefa" onclick="return confirm('Deseja excluir essa tarefa??')" class="btn btn-danger btn-xs">Excluir</a>
 				</td>
 			</tr>
 		{% endfor %}
 	</tbody>
 	</table>
-	
+								<!--condicional caso a lista esteja vazia-->
+									{% if tarefas.items|length == 0 %}
+									<h1 id="listavazia" align="center">Lista vazia</h1>
+									<div class="img-container">
+										<img src="../static/img/caixa-vazia.png" alt="caixa-vazia">
+									</div>
+									<footer class="modal-footer"></footer>
+									{% endif %}
+
 {% if tarefas.has_prev %}
-	<a href="{{url_for('listar_tarefas', page=tarefas.prev_num)}}" class="btn btn-secondary btn-sm">Página Anterior</a>
+	<a id="btnPagination" href="{{url_for('listar_tarefas', page=tarefas.prev_num)}}" class="btn btn-secondary btn-sm">Página Anterior</a>
 {% else %}
 {% endif %}
 
 {% if tarefas.has_next %}
-	<a href="{{url_for('listar_tarefas', page=tarefas.next_num)}}" class="btn btn-secondary btn-sm">Próxima Página</a>
+	<a id="btnPagination" href="{{url_for('listar_tarefas', page=tarefas.next_num)}}" class="btn btn-secondary btn-sm">Próxima Página</a>
 {% else %}
 {% endif %}
 

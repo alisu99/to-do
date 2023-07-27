@@ -16,7 +16,6 @@ class Tarefa(db.Model):
 		self.descricao = descricao
 
 @app.route('/criar_tarefa', methods=["GET", "POST"])
-
 def criar_tarefa():
 	tarefa = request.form.get('tarefa')
 	descricao = request.form.get('descricao')
@@ -48,6 +47,12 @@ def atualiza_tarefa(id):
 def remove_tarefa(id):
 	tarefa = Tarefa.query.filter_by(id=id).first()
 	db.session.delete(tarefa)
+	db.session.commit()
+	return redirect(url_for('listar_tarefas'))
+
+@app.route('/excluir_tarefas')
+def excluir_tarefas():
+	Tarefa.query.delete()
 	db.session.commit()
 	return redirect(url_for('listar_tarefas'))
 
